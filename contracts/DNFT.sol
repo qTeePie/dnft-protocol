@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-contract DNFT is ERC721 {
+contract DNFT is ERC721, Ownable {
     uint256 private _nextTokenId;
 
     // Manual URI mapping
     mapping(uint256 => string) private _tokenURIs;
 
-    constructor() ERC721("DNFT", "DNFT") {}
+    constructor(address initialOwner) ERC721("DNFT", "DNFT") Ownable(initialOwner) {}
 
     // Mint function with URI
     function mintNFT(address to) external {
@@ -36,7 +36,7 @@ contract DNFT is ERC721 {
         string memory svg = string(
             abi.encodePacked(
                 "<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='1024' viewBox='0 0 1024 1024'>",
-                "<rect width='100%' height='100%' fill='#0f0f0f'/>",
+                "<rect x='0' y='0' width='1024' height='1024' fill='#0f0f0f'/>",
                 "<g transform='translate(632, 357)'>",
                 "<g transform='skewX(-20)'>",
                 "<ellipse cx='-100' cy='30' rx='30' ry='35' fill='",
@@ -61,7 +61,7 @@ contract DNFT is ERC721 {
                     abi.encodePacked(
                         '{"name":"DNFT #',
                         Strings.toString(tokenId),
-                        '", "description":"On-chain SVG chaos-coded art", "image": "data:image/svg+xml;base64,',
+                        '", "description":"On-chain chaos art", "image": "ipfs://QmTAxyKv5oWqBB3XvHCSh6S2DbJC7EeFYizk4ySa8nU2Q9", "animation_url": "data:image/svg+xml;base64,',
                         Base64.encode(bytes(svg)),
                         '"}'
                     )
@@ -73,7 +73,7 @@ contract DNFT is ERC721 {
     }
 
     function getColor(uint256 tokenId) public pure returns (string memory) {
-        string[5] memory colors = ["#FF00FF", "#00FFFF", "#8A2BE2", "#39FF14", "#FFFF00"];
+        string[5] memory colors = ["#00FFFF", "#8A2BE2", "#39FF14", "#FFFF00", "#FF00FF"];
         return colors[tokenId % colors.length];
     }
 }
