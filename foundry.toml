@@ -1,9 +1,15 @@
 [profile.default]
 src = "src"
 out = "out"
-libs = ["lib"]
-solc_version = "0.8.28"
+libs = ["base"]
+ignored_warnings = ["Source not found", "File import callback failed"]
 
-remappings = ["@openzeppelin/contracts=lib/openzeppelin-contracts/contracts"]
+remappings = [
+    "@openzeppelin/contracts=base/openzeppelin-contracts/contracts",
+    "@forge-std=base/forge-std/src"
+]
+
+[rpc_endpoints]
+anvilFork = "http://127.0.0.1:8545"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
