@@ -1,7 +1,10 @@
 # Variables
-RPC_URL=http://127.0.0.1:8545
-SCRIPT=script/DeploySimpleNFT.s.sol
+include .env
+export $(shell sed 's/=.*//' .env)
+
+SCRIPT=script/DeployDNFT.s.sol
 OZ_LIB=base/openzeppelin-contracts
+RPC_URL= http://127.0.0.1:8545
 
 # Start Anvil (local testnet)
 anvil:
@@ -17,8 +20,14 @@ build: install
 	forge build
 
 # Deploy contract
+#deploy: build
+#	forge script $(SCRIPT) --rpc-url $(RPC_URL) --broadcast --private-key $(PRIVATE_KEY) --chain-id 1111
+
 deploy: build
-	forge script $(SCRIPT) --rpc-url $(RPC_URL) --broadcast --private-key "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+	forge script $(SCRIPT) --rpc-url $(RPC_URL) --broadcast --private-key $(PRIVATE_KEY) --chain-id 1111
+
+approve: build
+	forge script script/ScriptApproveNFT.s.sol:ScriptApproveNFT --rpc-url $(RPC_URL) --broadcast --private-key $(PRIVATE_KEY) --chain-id 1111
 
 # Run tests
 test: build
@@ -32,3 +41,6 @@ fmt:
 clean:
 	forge clean
 	rm -rf base/openzeppelin-contracts
+
+fork-anvil:
+	anvil --fork-url $(RPC_URL) --chain-id 1111

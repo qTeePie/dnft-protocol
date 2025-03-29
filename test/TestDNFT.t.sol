@@ -42,6 +42,8 @@ contract TestDNFT is Test {
     }
 
     function testApproveMarketplace() public {
+        dnft.mintNFT(user);
+
         vm.startPrank(user);
         dnft.approveMarketplace(marketplace, 0);
         address approved = dnft.getApproved(0);
