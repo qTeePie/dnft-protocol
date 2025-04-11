@@ -31,7 +31,7 @@ deploy: build
 		--chain-id 1111 \
 
 approve: build
-	forge script script/ScriptApproveNFT.s.sol:ScriptApproveNFT --rpc-url $(RPC_URL) --broadcast --private-key $(PRIVATE_KEY) --chain-id 1111
+	cast send $(NFT_CONTRACT) 
 
 # Mint NFT
 mint:
