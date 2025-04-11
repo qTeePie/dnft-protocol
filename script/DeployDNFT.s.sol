@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "contracts/DNFT.sol";
+import "../contracts/DNFT.sol";
 
 contract DeployDNFT is Script {
     function run() external {
@@ -11,5 +11,7 @@ contract DeployDNFT is Script {
         DNFT nft = new DNFT(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
         console.log("Deployed DNFT at:", address(nft));
         vm.stopBroadcast();
+
+        vm.writeFile("data/NFTAddress.txt", Strings.toHexString(address(nft)));
     }
 }

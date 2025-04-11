@@ -1,7 +1,10 @@
 [profile.default]
-src = "src"
+src = "contracts"
 out = "out"
 libs = ["base"]
+fs_permissions = [
+    { access = 'read-write', path = './data/' }
+]
 ignored_warnings = ["Source not found", "File import callback failed"]
 
 remappings = [

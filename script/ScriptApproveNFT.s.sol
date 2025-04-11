@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "contracts/DNFT.sol"; // Adjust the import path
+import "../contracts/DNFT.sol"; // Adjust the import path
 
 contract ScriptApproveNFT is Script {
     function run() external {
